@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+
+set -e
+
+
+mkdir -p /tmp/build
+
+./configure \
+    --prefix=/tmp/build
+    --disable-everything \
+    --disable-programs \
+    --disable-doc \
+    --disable-debug \
+    --disable-encoders \
+    --disable-decoders \
+    --disable-devices \
+    --disable-sdl2 \
+    --disable-ffprobe \
+    --disable-doc \
+    --disable-w32threads \
+    --disable-ffplay \
+    --disable-avdevice \
+    --disable-avformat \
+    --disable-swresample \
+    --disable-swscale \
+    --disable-postproc \
+    --disable-avfilter \
+    --disable-pthreads \
+    --disable-os2threads \
+    --disable-network \
+    --disable-alsa \
+    --disable-bzlib \
+    --disable-x86asm \
+    --disable-runtime-cpudetect \
+    --enable-decoder=h264 \
+    --enable-small \
+    --enable-neon \
+    --enable-static \
+    --enable-cross-compile \
+    --arch=aarch64 \
+    --target-os=linux \
+    --cpu=cortex-a72 \
+    --cross-prefix=aarch64-linux-gnu- \
+    --cc=aarch64-linux-gnu-gcc \
+    --extra-cflags='march=armv8-a -mtune=cortex-a72'
+
+exit 0

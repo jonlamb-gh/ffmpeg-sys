@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+set -e
+
+mkdir -p /tmp/build
+
+./configure \
+        --prefix=/tmp/build \
+        --cc=aarch64-linux-gnu-gcc \
+        --enable-cross-compile \
+        --cross-prefix=aarch64-linux-gnu-\
+        --target-os=linux \
+        --arch=aarch64 \
+        --extra-cflags="-O3 -fPIC" \
+        --disable-doc \
+        --disable-shared \
+        --enable-static \
+        --disable-debug \
+        --disable-runtime-cpudetect \
+        --disable-programs \
+        --disable-muxers \
+        --disable-encoders \
+        --disable-decoders \
+        --enable-decoder=h264 \
+        --disable-bsfs \
+        --disable-pthreads \
+        --disable-avdevice \
+        --disable-network \
+        --disable-postproc
+
+exit 0

@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
+# https://stackoverflow.com/questions/59054751/minimum-ffmpeg-configure-options-for-h264-decoding
 
 set -e
-
 
 mkdir -p /tmp/build
 

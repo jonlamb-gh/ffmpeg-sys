@@ -6,13 +6,16 @@ fn main() {
 
     Command::new("./configure")
         .current_dir("ffmpeg")
+        .env("CC", "aarch64-linux-gnu-gcc")
         .arg(format!("--prefix={}", out_dir))
+        .args(aarch64_configs())
         .args(common_configs())
         .output()
         .expect("Failed to run ffmpeg's configure script");
 
     Command::new("make")
         .current_dir("ffmpeg")
+        .env("CC", "aarch64-linux-gnu-gcc")
         .arg("-j")
         .arg("8")
         .output()
@@ -20,6 +23,7 @@ fn main() {
 
     Command::new("make")
         .current_dir("ffmpeg")
+        .env("CC", "aarch64-linux-gnu-gcc")
         .arg("install")
         .output()
         .expect("Failed to run ffmpeg's Makefile install step");
@@ -64,6 +68,8 @@ fn main() {
 }
 
 fn common_configs() -> &'static [&'static str] {
+    //"--disable-all",
+    // --enable-hardcoded-tables
     &[
         "--disable-everything",
         "--disable-programs",
@@ -90,9 +96,26 @@ fn common_configs() -> &'static [&'static str] {
         "--disable-bzlib",
         "--disable-zlib",
         "--disable-runtime-cpudetect",
+        "--disable-logging",
+        "--disable-large-tests",
+        "--disable-iconv",
+        "--disable-filters",
+        "--disable-pixelutils",
         "--enable-decoder=h264",
         "--enable-parser=h264",
         "--enable-small",
         "--enable-static",
+    ]
+}
+
+fn aarch64_configs() -> &'static [&'static str] {
+    // --extra-cflags="-O3 -fPIC"
+    &[
+        "--cc=aarch64-linux-gnu-gcc",
+        "--enable-cross-compile",
+        "--cross-prefix=aarch64-linux-gnu-",
+        "--target-os=linux",
+        "--arch=aarch64",
+        "--extra-cflags=\"-fno-stack-protector -fno-mudflap -U_FORTIFY_SOURCE\"",
     ]
 }

@@ -6,16 +6,16 @@ fn main() {
 
     Command::new("./configure")
         .current_dir("ffmpeg")
-        .env("CC", "aarch64-linux-gnu-gcc")
+        //.env("CC", "aarch64-linux-gnu-gcc")
         .arg(format!("--prefix={}", out_dir))
-        .args(aarch64_configs())
+        //.args(aarch64_configs())
         .args(common_configs())
         .output()
         .expect("Failed to run ffmpeg's configure script");
 
     Command::new("make")
         .current_dir("ffmpeg")
-        .env("CC", "aarch64-linux-gnu-gcc")
+        //.env("CC", "aarch64-linux-gnu-gcc")
         .arg("-j")
         .arg("8")
         .output()
@@ -23,7 +23,7 @@ fn main() {
 
     Command::new("make")
         .current_dir("ffmpeg")
-        .env("CC", "aarch64-linux-gnu-gcc")
+        //.env("CC", "aarch64-linux-gnu-gcc")
         .arg("install")
         .output()
         .expect("Failed to run ffmpeg's Makefile install step");
